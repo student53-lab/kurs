@@ -4,33 +4,83 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>tiptoe — Простір для дітей 2-6 років</title>
+  <meta name="description" content="tiptoe — простір для дітей 2-6 років: заняття, ігри та додаткові майстер класи.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #fff8ef;
+      --card: #ffffff;
+      --text: #3d3a4f;
+      --muted: #6e6a80;
+      --coral: #ff8a7a;
+      --yellow: #ffc84a;
+      --green: #6cc7a8;
+      --blue: #7aa9ff;
+      --radius: 28px;
+      --shadow: 0 12px 40px rgba(61, 58, 79, 0.08);
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { scroll-behavior: smooth; }
+
     body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
       font-family: 'Nunito', Arial, sans-serif;
-      background: #fff8ef;
-      color: #3d3a4f;
-      text-align: center;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
       overflow-x: hidden;
     }
 
-    .card {
-      position: relative;
-      max-width: 560px;
-      width: 100%;
-      padding: 56px 32px;
-      background: #ffffff;
-      border-radius: 32px;
-      box-shadow: 0 12px 40px rgba(61, 58, 79, 0.08);
+    a { color: inherit; }
+
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Шапка */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 248, 239, 0.92);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--coral);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .menu {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      font-weight: 700;
+    }
+
+    .menu a { text-decoration: none; }
+    .menu a:hover { color: var(--coral); }
+
+    /* Перший екран */
+    .hero {
+      padding: 48px 0 64px;
+      text-align: center;
     }
 
     .dots {
@@ -46,10 +96,10 @@
       border-radius: 50%;
       animation: hop 1.4s ease-in-out infinite;
     }
-    .dots span:nth-child(1) { background: #ff8a7a; }
-    .dots span:nth-child(2) { background: #ffc84a; animation-delay: .15s; }
-    .dots span:nth-child(3) { background: #6cc7a8; animation-delay: .3s; }
-    .dots span:nth-child(4) { background: #7aa9ff; animation-delay: .45s; }
+    .dots span:nth-child(1) { background: var(--coral); }
+    .dots span:nth-child(2) { background: var(--yellow); animation-delay: .15s; }
+    .dots span:nth-child(3) { background: var(--green); animation-delay: .3s; }
+    .dots span:nth-child(4) { background: var(--blue); animation-delay: .45s; }
 
     @keyframes hop {
       0%, 100% { transform: translateY(0); }
@@ -57,51 +107,297 @@
     }
 
     h1 {
-      font-size: clamp(48px, 12vw, 80px);
+      font-size: clamp(56px, 14vw, 104px);
       font-weight: 800;
-      letter-spacing: -1px;
-      color: #ff8a7a;
+      letter-spacing: -2px;
+      color: var(--coral);
       line-height: 1;
     }
 
-    .subtitle {
-      margin-top: 12px;
-      font-size: clamp(18px, 4.5vw, 22px);
-      font-weight: 700;
-    }
-
     .extra {
-      margin-top: 10px;
-      font-size: clamp(16px, 4vw, 19px);
+      margin-top: 12px;
+      font-size: clamp(17px, 4vw, 20px);
       font-weight: 700;
-      color: #7aa9ff;
+      color: var(--blue);
     }
 
-    .status {
-      display: inline-block;
-      margin-top: 32px;
-      padding: 10px 22px;
-      border-radius: 999px;
-      background: #eaf7f2;
-      color: #2f8a6a;
+    .subtitle {
+      margin-top: 8px;
+      font-size: clamp(20px, 5vw, 26px);
       font-weight: 700;
-      font-size: 16px;
+    }
+
+    .lead {
+      max-width: 560px;
+      margin: 16px auto 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 17px;
+      text-decoration: none;
+      transition: transform .15s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--coral); color: #fff; }
+    .btn-secondary { background: var(--card); box-shadow: var(--shadow); }
+
+    /* Секції */
+    section { padding: 56px 0; }
+
+    h2 {
+      font-size: clamp(28px, 6vw, 38px);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .section-lead {
+      text-align: center;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 32px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card .icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      font-size: 21px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .card p { color: var(--muted); }
+
+    .bg-coral { background: #ffe9e5; }
+    .bg-yellow { background: #fff3d6; }
+    .bg-green { background: #e3f5ee; }
+    .bg-blue { background: #e7f0ff; }
+
+    /* Майстер класи */
+    .classes {
+      background: var(--card);
+      border-radius: 40px;
+      box-shadow: var(--shadow);
+      padding: 48px 24px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .tag {
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    /* Контакти */
+    .contacts {
+      text-align: center;
+    }
+
+    .contacts .card {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .contacts dl {
+      display: grid;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .contacts dt {
+      font-weight: 800;
+    }
+
+    .contacts dd { color: var(--muted); }
+
+    footer {
+      padding: 32px 0 40px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    @media (max-width: 600px) {
+      .menu { display: none; }
+      .hero { padding-top: 32px; }
+      section { padding: 40px 0; }
     }
 
     @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
       .dots span { animation: none; }
+      .btn { transition: none; }
     }
   </style>
 </head>
 <body>
-  <main class="card">
-    <div class="dots" aria-hidden="true">
-      <span></span><span></span><span></span><span></span>
+  <header>
+    <div class="wrap nav">
+      <a class="logo" href="#top">tiptoe</a>
+      <nav aria-label="Головне меню">
+        <ul class="menu">
+          <li><a href="#about">Про нас</a></li>
+          <li><a href="#offer">Заняття</a></li>
+          <li><a href="#classes">Майстер класи</a></li>
+          <li><a href="#contacts">Контакти</a></li>
+        </ul>
+      </nav>
     </div>
-    <h1>tiptoe</h1>
-    <p class="extra">додаткові майстер класи</p>
-    <p class="subtitle">Простір для дітей 2-6 років</p>
-    <p class="status">🛠 Сайт у розробці</p>
+  </header>
+
+  <main id="top">
+    <div class="wrap hero">
+      <div class="dots" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <h1>tiptoe</h1>
+      <p class="extra">додаткові майстер класи</p>
+      <p class="subtitle">Простір для дітей 2-6 років</p>
+      <p class="lead">Місце, де малюки граються, творять і відкривають світ маленькими кроками — у затишній атмосфері та поруч із турботливими дорослими.</p>
+      <div class="buttons">
+        <a class="btn btn-primary" href="#contacts">Записатися</a>
+        <a class="btn btn-secondary" href="#offer">Що ми пропонуємо</a>
+      </div>
+    </div>
+
+    <section id="about">
+      <div class="wrap">
+        <h2>Про нас</h2>
+        <p class="section-lead">tiptoe — це простір, створений спеціально для дітей від 2 до 6 років. Ми віримо, що найкраще діти вчаться через гру, творчість і спілкування.</p>
+        <div class="grid">
+          <div class="card">
+            <div class="icon bg-coral" aria-hidden="true">🧸</div>
+            <h3>Затишно</h3>
+            <p>Простір, у якому дитині комфортно й безпечно.</p>
+          </div>
+          <div class="card">
+            <div class="icon bg-yellow" aria-hidden="true">🌱</div>
+            <h3>У своєму темпі</h3>
+            <p>Кожна дитина розвивається по-своєму, і ми це поважаємо.</p>
+          </div>
+          <div class="card">
+            <div class="icon bg-green" aria-hidden="true">🤝</div>
+            <h3>Разом</h3>
+            <p>Діти вчаться дружити, ділитися та працювати в команді.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="offer">
+      <div class="wrap">
+        <h2>Заняття</h2>
+        <p class="section-lead">Різні формати, щоб кожна дитина знайшла те, що їй до душі.</p>
+        <div class="grid">
+          <div class="card">
+            <div class="icon bg-blue" aria-hidden="true">🎨</div>
+            <h3>Творчість</h3>
+            <p>Малювання, ліплення, аплікації та інші творчі заняття.</p>
+          </div>
+          <div class="card">
+            <div class="icon bg-coral" aria-hidden="true">🎵</div>
+            <h3>Музика й рух</h3>
+            <p>Пісні, танці та рухливі ігри для енергійних малюків.</p>
+          </div>
+          <div class="card">
+            <div class="icon bg-yellow" aria-hidden="true">🧩</div>
+            <h3>Розвиток</h3>
+            <p>Ігри на мислення, мовлення, увагу та дрібну моторику.</p>
+          </div>
+          <div class="card">
+            <div class="icon bg-green" aria-hidden="true">📚</div>
+            <h3>Казки й історії</h3>
+            <p>Читання, обговорення та маленькі театральні постановки.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="classes">
+      <div class="wrap">
+        <div class="classes">
+          <h2>Додаткові майстер класи</h2>
+          <p class="section-lead">Окремі тематичні зустрічі, на яких діти пробують щось нове та створюють власні маленькі шедеври.</p>
+          <div class="tags">
+            <span class="tag bg-coral">Кулінарія для малят</span>
+            <span class="tag bg-yellow">Сенсорні ігри</span>
+            <span class="tag bg-green">Природа навколо</span>
+            <span class="tag bg-blue">Святкові вироби</span>
+          </div>
+          <div class="buttons">
+            <a class="btn btn-primary" href="#contacts">Дізнатися розклад</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacts" class="contacts">
+      <div class="wrap">
+        <h2>Контакти</h2>
+        <p class="section-lead">Напишіть або зателефонуйте нам — розповімо більше й допоможемо обрати заняття.</p>
+        <div class="card">
+          <dl>
+            <div>
+              <dt>Телефон</dt>
+              <dd>[додайте номер телефону]</dd>
+            </div>
+            <div>
+              <dt>Адреса</dt>
+              <dd>[додайте адресу]</dd>
+            </div>
+            <div>
+              <dt>Години роботи</dt>
+              <dd>[додайте години роботи]</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <div class="wrap">© tiptoe — простір для дітей 2-6 років</div>
+  </footer>
 </body>
 </html>
