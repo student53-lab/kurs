@@ -23,7 +23,7 @@ window.TT_I18N = {
     footerAbout: 'Центр для дітей 2–6 років, Харків',
     privacyLink: 'Політика конфіденційності',
     toHome: 'На головну',
-    phInstagram: '[ПОЛЕ] посилання на Instagram',
+    instagramLabel: 'TipToe в Instagram',
 
     /* Лендинг */
     'site.title': 'TipToe — простір для дітей 2–6 років у Харкові',
@@ -158,7 +158,7 @@ window.TT_I18N = {
     footerAbout: 'Centre for children aged 2–6, Kharkiv',
     privacyLink: 'Privacy policy',
     toHome: 'Go to home page',
-    phInstagram: '[FIELD] Instagram link',
+    instagramLabel: 'TipToe on Instagram',
 
     'site.title': 'TipToe — a space for children aged 2–6 in Kharkiv',
     'site.desc': 'While you take care of your own things, your child plays, creates and learns with our teachers. Drop-in hourly visits, classes and workshops.',
