@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Add-Type -AssemblyName System.IO.Compression.FileSystem; $z=[IO.Compression.ZipFile]::OpenRead\\(\"$PWD\\\\ТЗ_сайт_TipToe_v3_2.docx\"\\); $e=$z.GetEntry\\('word/document.xml'\\); $s=New-Object IO.StreamReader\\($e.Open\\(\\)\\); $x=$s.ReadToEnd\\(\\); $z.Dispose\\(\\); $t=$x -replace '</w:p>',\"`n\" -replace '<[^>]+>',''; $t.Substring\\(0,[Math]::Min\\(6000,$t.Length\\)\\))",
+      "PowerShell(Add-Type -AssemblyName System.IO.Compression.FileSystem; $z=[IO.Compression.ZipFile]::OpenRead\\(\"$PWD\\\\ТЗ_сайт_TipToe_v3_2.docx\"\\); $e=$z.GetEntry\\('word/document.xml'\\); $s=New-Object IO.StreamReader\\($e.Open\\(\\)\\); $x=$s.ReadToEnd\\(\\); $z.Dispose\\(\\); $t=$x -replace '</w:p>',\"`n\" -replace '<[^>]+>',''; $t.Substring\\(6000\\))"
+    ]
+  }
+}
