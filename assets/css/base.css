@@ -1,0 +1,139 @@
+/* TipToe — база: шрифти, типографіка, сітка, фокус, пропуск навігації. */
+
+@font-face {
+  font-family: "Comfortaa";
+  src: url("../fonts/Comfortaa-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-offset);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font: var(--type-body);
+  overflow-x: hidden;
+}
+
+img, svg { max-width: 100%; }
+
+h1, h2, h3, p, ul, ol, dl, dd { margin: 0; }
+ul, ol { padding: 0; }
+
+[hidden] { display: none !important; }
+
+/* Сітка */
+.wrap {
+  width: 100%;
+  max-width: calc(var(--container-max) + 2 * var(--space-7));
+  margin: 0 auto;
+  padding-inline: var(--space-4);
+}
+
+.sec { padding-block: var(--space-8); }
+.sec--alt { background: var(--surface-alt); }
+
+.stack { display: flex; flex-direction: column; }
+.stack--4 { gap: var(--space-4); }
+.stack--5 { gap: var(--space-5); }
+.stack--6 { gap: var(--space-6); }
+.stack--7 { gap: var(--space-7); }
+
+.grid { display: grid; gap: var(--space-5); }
+.grid--sm { grid-template-columns: repeat(auto-fit, minmax(min(var(--col-sm), 100%), 1fr)); }
+.grid--md { grid-template-columns: repeat(auto-fit, minmax(min(var(--col-md), 100%), 1fr)); }
+
+.narrow { max-width: var(--content-max); }
+
+/* Типографіка */
+.tt-h1 { font: var(--type-h1); letter-spacing: var(--ls-h1); }
+.tt-h2 { font: var(--type-h2); }
+.tt-h3 { font: var(--type-h3); }
+.tt-lead { font: var(--type-body-lg); max-width: var(--measure); }
+.tt-body { font: var(--type-body); max-width: var(--measure); }
+.tt-strong { font: var(--type-body-strong); }
+.tt-small { font: var(--type-small); color: var(--text-muted); }
+.tt-caption { font: var(--type-caption); }
+.tt-label { font: var(--type-label); }
+
+@media (min-width: 768px) {
+  .wrap { padding-inline: var(--space-7); }
+  .sec { padding-block: var(--space-9); }
+  .tt-h1 { font: var(--type-h1-desktop); letter-spacing: var(--ls-h1-desktop); }
+  .tt-h2 { font: var(--type-h2-desktop); }
+  .tt-h3 { font: var(--type-h3-desktop); }
+  .tt-lead { font: var(--type-body-lg-desktop); }
+}
+
+/* Фокус: лише з клавіатури, кільце 3 px */
+:focus-visible {
+  outline: var(--focus-width) solid var(--focus);
+  outline-offset: var(--focus-offset);
+}
+
+main:focus { outline: none; }
+section[id], [id].anchor { scroll-margin-top: var(--header-offset); }
+
+/* Пропуск навігації */
+.tt-skip {
+  position: absolute;
+  left: var(--space-4);
+  top: calc(var(--tap-min) * -2.5);
+  z-index: 100;
+}
+.tt-skip:focus,
+.tt-skip:focus-visible { top: var(--space-3); }
+
+/* Текст лише для читачів екрана */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: calc(var(--border-width) * -0.5);
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Позначка відсутніх даних у прототипі */
+.ph-field { color: var(--text-muted); font-style: italic; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

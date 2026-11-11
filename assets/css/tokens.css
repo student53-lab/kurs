@@ -1,0 +1,156 @@
+/* TipToe — токени дизайн-системи v20.
+   Джерело: design-system/project/tokens.json. Значення тут не змінювати вручну:
+   спершу правиться tokens.json, потім цей файл. */
+
+:root {
+  color-scheme: light;
+
+  /* Кольори: світла тема */
+  --background: #F7EFE4;
+  --surface: #FFFBF5;
+  --surface-alt: #EAD9C3;
+  --text: #5A3E2B;
+  --text-muted: #745A47;
+  --accent: #F28C28;
+  --accent-hover: #FFA23F;
+  --accent-active: #E27A12;
+  --on-accent: #3A2616;
+  --border: #8A6B52;
+  --border-subtle: #D9C5A8;
+  --focus: #3A2616;
+  --success: #556644;
+  --error: #A3281D;
+  --edge: #3A2616;
+
+  /* Бренд і основи */
+  --orange: #F28C28;
+  --green: #8FA67A;
+  --ink-deep: #3A2616;
+  --orange-strong: #954E09;
+  --green-strong: #556644;
+  --on-strong: #FFFFFF;
+
+  /* Кольори Тіпі (однакові в обох темах) */
+  --tipi-cream: #FFFBF5;
+  --tipi-brown: #5A3E2B;
+  --tipi-wood: #C49A6C;
+
+  /* Тіні */
+  --shadow-card: 0 8px 24px 0 rgba(90, 62, 43, 0.14);
+  --shadow-cta: 0 4px 0 0 #3a2616;
+  --shadow-cta-hover: 0 6px 0 0 #3a2616;
+
+  /* Відступи */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  /* Радіуси */
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  /* Розкладка й розміри */
+  --container-max: 1120px;
+  --min-viewport: 360px;
+  --tap-min: 48px;
+  --border-width: 2px;
+  --focus-width: 3px;
+  --focus-offset: 3px;
+  --focus-offset-tight: 2px;
+  --lift: 2px;
+  --press: 4px;
+  --wordmark-shadow: 3px;
+  --header-offset: 88px;
+  --measure: 68ch;
+  --textarea-min: 112px;
+  --content-max: 760px;
+  --col-day: 140px;
+  --col-time: 64px;
+  --col-sm: 240px;
+  --col-md: 300px;
+  --col-lg: 360px;
+  --map-min: 320px;
+  --illustration: 160px;
+  /* Немає в tokens.json, але використано в макетах: розмір великого слова «TipToe». */
+  --wordmark-size: clamp(3rem, 11vw, 6rem);
+
+  /* Шрифти */
+  --font-heading: "Comfortaa", "Nunito", system-ui, sans-serif;
+  --font-body: "Nunito", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  /* Шкала тексту */
+  --type-h1: 700 2rem/2.5rem var(--font-heading);
+  --type-h1-desktop: 700 3.5rem/4rem var(--font-heading);
+  --type-h2: 700 1.625rem/2.125rem var(--font-heading);
+  --type-h2-desktop: 700 2.5rem/3rem var(--font-heading);
+  --type-h3: 700 1.375rem/1.875rem var(--font-heading);
+  --type-h3-desktop: 700 1.75rem/2.25rem var(--font-heading);
+  --type-wordmark-sm: 700 1.75rem/2rem var(--font-heading);
+  --type-body-lg: 400 1.1875rem/1.875rem var(--font-body);
+  --type-body-lg-desktop: 400 1.25rem/2rem var(--font-body);
+  --type-body: 400 1.0625rem/1.75rem var(--font-body);
+  --type-body-strong: 700 1.0625rem/1.75rem var(--font-body);
+  --type-small: 400 1rem/1.5rem var(--font-body);
+  --type-caption: 400 1rem/1.375rem var(--font-body);
+  --type-label: 700 1rem/1.25rem var(--font-body);
+  --type-button: 700 1.125rem/1.5rem var(--font-body);
+  --type-input: 400 1.0625rem/1.5rem var(--font-body);
+  --type-nav: 600 1.0625rem/1.5rem var(--font-body);
+  --type-code: 400 1rem/1.5rem var(--font-mono);
+  --ls-h1: -0.01em;
+  --ls-h1-desktop: -0.02em;
+}
+
+/* Темна тема: тепла коричнева. Вмикається атрибутом data-theme="dark" на <html>. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #2A1B10;
+  --surface: #46321F;
+  --surface-alt: #3A2616;
+  --text: #F7EFE4;
+  --text-muted: #D9C5A8;
+  --border: #A68868;
+  --border-subtle: #5A4330;
+  --focus: #F7EFE4;
+  --success: #8FA67A;
+  --error: #F08A7E;
+  --edge: #F7EFE4;
+  --orange-strong: #F28C28;
+  --green-strong: #8FA67A;
+  --on-strong: #2A1B10;
+  --shadow-card: 0 8px 24px 0 rgba(0, 0, 0, 0.45);
+  --shadow-cta: 0 4px 0 0 #d9c5a8;
+  --shadow-cta-hover: 0 6px 0 0 #d9c5a8;
+}
+
+/* Без JavaScript тема береться з налаштувань пристрою. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --background: #2A1B10;
+    --surface: #46321F;
+    --surface-alt: #3A2616;
+    --text: #F7EFE4;
+    --text-muted: #D9C5A8;
+    --border: #A68868;
+    --border-subtle: #5A4330;
+    --focus: #F7EFE4;
+    --success: #8FA67A;
+    --error: #F08A7E;
+    --edge: #F7EFE4;
+    --orange-strong: #F28C28;
+    --green-strong: #8FA67A;
+    --on-strong: #2A1B10;
+    --shadow-card: 0 8px 24px 0 rgba(0, 0, 0, 0.45);
+    --shadow-cta: 0 4px 0 0 #d9c5a8;
+    --shadow-cta-hover: 0 6px 0 0 #d9c5a8;
+  }
+}

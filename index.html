@@ -1,403 +1,63 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" data-page="stub">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>tiptoe — Простір для дітей 2-6 років</title>
-  <meta name="description" content="tiptoe — простір для дітей 2-6 років: заняття, ігри та додаткові майстер класи.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #fff8ef;
-      --card: #ffffff;
-      --text: #3d3a4f;
-      --muted: #6e6a80;
-      --coral: #ff8a7a;
-      --yellow: #ffc84a;
-      --green: #6cc7a8;
-      --blue: #7aa9ff;
-      --radius: 28px;
-      --shadow: 0 12px 40px rgba(61, 58, 79, 0.08);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Nunito', Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    a { color: inherit; }
-
-    .wrap {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 16px;
-    }
-
-    /* Шапка */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(255, 248, 239, 0.92);
-      backdrop-filter: blur(8px);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 0;
-    }
-
-    .logo {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--coral);
-      text-decoration: none;
-      letter-spacing: -0.5px;
-    }
-
-    .menu {
-      display: flex;
-      gap: 20px;
-      list-style: none;
-      font-weight: 700;
-    }
-
-    .menu a { text-decoration: none; }
-    .menu a:hover { color: var(--coral); }
-
-    /* Перший екран */
-    .hero {
-      padding: 48px 0 64px;
-      text-align: center;
-    }
-
-    .dots {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-
-    .dots span {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      animation: hop 1.4s ease-in-out infinite;
-    }
-    .dots span:nth-child(1) { background: var(--coral); }
-    .dots span:nth-child(2) { background: var(--yellow); animation-delay: .15s; }
-    .dots span:nth-child(3) { background: var(--green); animation-delay: .3s; }
-    .dots span:nth-child(4) { background: var(--blue); animation-delay: .45s; }
-
-    @keyframes hop {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    h1 {
-      font-size: clamp(56px, 14vw, 104px);
-      font-weight: 800;
-      letter-spacing: -2px;
-      color: var(--coral);
-      line-height: 1;
-    }
-
-    .extra {
-      margin-top: 12px;
-      font-size: clamp(17px, 4vw, 20px);
-      font-weight: 700;
-      color: var(--blue);
-    }
-
-    .subtitle {
-      margin-top: 8px;
-      font-size: clamp(20px, 5vw, 26px);
-      font-weight: 700;
-    }
-
-    .lead {
-      max-width: 560px;
-      margin: 16px auto 0;
-      color: var(--muted);
-      font-size: 18px;
-    }
-
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 32px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 14px 28px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: 17px;
-      text-decoration: none;
-      transition: transform .15s ease;
-    }
-    .btn:hover { transform: translateY(-2px); }
-    .btn-primary { background: var(--coral); color: #fff; }
-    .btn-secondary { background: var(--card); box-shadow: var(--shadow); }
-
-    /* Секції */
-    section { padding: 56px 0; }
-
-    h2 {
-      font-size: clamp(28px, 6vw, 38px);
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 8px;
-    }
-
-    .section-lead {
-      text-align: center;
-      color: var(--muted);
-      max-width: 560px;
-      margin: 0 auto 32px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 28px 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .card .icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 18px;
-      display: grid;
-      place-items: center;
-      font-size: 28px;
-      margin-bottom: 16px;
-    }
-
-    .card h3 {
-      font-size: 21px;
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-
-    .card p { color: var(--muted); }
-
-    .bg-coral { background: #ffe9e5; }
-    .bg-yellow { background: #fff3d6; }
-    .bg-green { background: #e3f5ee; }
-    .bg-blue { background: #e7f0ff; }
-
-    /* Майстер класи */
-    .classes {
-      background: var(--card);
-      border-radius: 40px;
-      box-shadow: var(--shadow);
-      padding: 48px 24px;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .tag {
-      padding: 12px 22px;
-      border-radius: 999px;
-      font-weight: 700;
-    }
-
-    /* Контакти */
-    .contacts {
-      text-align: center;
-    }
-
-    .contacts .card {
-      max-width: 560px;
-      margin: 0 auto;
-    }
-
-    .contacts dl {
-      display: grid;
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    .contacts dt {
-      font-weight: 800;
-    }
-
-    .contacts dd { color: var(--muted); }
-
-    footer {
-      padding: 32px 0 40px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    @media (max-width: 600px) {
-      .menu { display: none; }
-      .hero { padding-top: 32px; }
-      section { padding: 40px 0; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .dots span { animation: none; }
-      .btn { transition: none; }
-    }
-  </style>
+  <title>TipToe — сайт скоро запрацює</title>
+  <meta name="description" content="TipToe — простір для дітей 2–6 років у Харкові. Сайт скоро запрацює.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/sections.css">
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js" defer></script>
+  <script src="assets/js/lang.js" defer></script>
 </head>
 <body>
-  <header>
-    <div class="wrap nav">
-      <a class="logo" href="#top">tiptoe</a>
-      <nav aria-label="Головне меню">
-        <ul class="menu">
-          <li><a href="#about">Про нас</a></li>
-          <li><a href="#offer">Заняття</a></li>
-          <li><a href="#classes">Майстер класи</a></li>
-          <li><a href="#contacts">Контакти</a></li>
-        </ul>
-      </nav>
+<!-- Заглушка «Сайт у розробці»: показується до запуску. Готовий лендинг — site.html. -->
+<div id="top" class="page">
+  <a class="tt-btn tt-skip" href="#main" data-i18n="skip">Перейти до основного вмісту</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="tp-head" viewBox="0 0 200 200"><g style="stroke:var(--edge)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M60 66L54 22Q57 17 62 20L92 44Z" fill="var(--orange)"/><path d="M140 66L146 22Q143 17 138 20L108 44Z" fill="var(--orange)"/><path d="M63 56L61 34L79 47Z" fill="var(--tipi-cream)" stroke="none"/><path d="M137 56L139 34L121 47Z" fill="var(--tipi-cream)" stroke="none"/><ellipse cx="100" cy="84" rx="48" ry="40" fill="var(--orange)"/><path d="M57 94Q100 74 143 94Q130 124 100 124Q70 124 57 94Z" fill="var(--tipi-cream)" stroke="none"/><circle cx="68" cy="100" r="6" fill="var(--orange)" stroke="none" opacity=".4"/><circle cx="132" cy="100" r="6" fill="var(--orange)" stroke="none" opacity=".4"/><circle cx="80" cy="82" r="5.5" fill="var(--ink-deep)" stroke="none"/><circle cx="120" cy="82" r="5.5" fill="var(--ink-deep)" stroke="none"/><circle cx="82" cy="80" r="1.8" fill="var(--tipi-cream)" stroke="none"/><circle cx="122" cy="80" r="1.8" fill="var(--tipi-cream)" stroke="none"/><ellipse cx="100" cy="98" rx="6" ry="4.5" fill="var(--ink-deep)" stroke="none"/><path d="M92 108Q100 115 108 108" fill="none" stroke-width="2.5"/></g></symbol>
+    </defs>
+  </svg>
+
+  <header class="site-header">
+    <div class="wrap hdr-row">
+      <div class="hdr-tools">
+        <button class="theme-btn" type="button" aria-pressed="false" aria-label="Темна тема" data-i18n-attr="aria-label:theme">
+          <svg class="ico-moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+          <svg class="ico-sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></svg>
+        </button>
+        <div class="tt-lang" role="group" aria-label="Мова сайту" data-i18n-attr="aria-label:langLabel">
+          <a href="?lang=uk" data-lang="uk" lang="uk" hreflang="uk" aria-current="true" aria-label="UA — українська" data-i18n-attr="aria-label:uaLabel">UA</a>
+          <a href="?lang=en" data-lang="en" lang="en" hreflang="en" aria-current="false" aria-label="EN — English" data-i18n-attr="aria-label:enLabel">EN</a>
+        </div>
+      </div>
     </div>
   </header>
 
-  <main id="top">
-    <div class="wrap hero">
-      <div class="dots" aria-hidden="true">
-        <span></span><span></span><span></span><span></span>
-      </div>
-      <h1>tiptoe</h1>
-      <p class="extra">додаткові майстер класи</p>
-      <p class="subtitle">Простір для дітей 2-6 років</p>
-      <p class="lead">Місце, де малюки граються, творять і відкривають світ маленькими кроками — у затишній атмосфері та поруч із турботливими дорослими.</p>
-      <div class="buttons">
-        <a class="btn btn-primary" href="#contacts">Записатися</a>
-        <a class="btn btn-secondary" href="#offer">Що ми пропонуємо</a>
-      </div>
-    </div>
-
-    <section id="about">
-      <div class="wrap">
-        <h2>Про нас</h2>
-        <p class="section-lead">tiptoe — це простір, створений спеціально для дітей від 2 до 6 років. Ми віримо, що найкраще діти вчаться через гру, творчість і спілкування.</p>
-        <div class="grid">
-          <div class="card">
-            <div class="icon bg-coral" aria-hidden="true">🧸</div>
-            <h3>Затишно</h3>
-            <p>Простір, у якому дитині комфортно й безпечно.</p>
-          </div>
-          <div class="card">
-            <div class="icon bg-yellow" aria-hidden="true">🌱</div>
-            <h3>У своєму темпі</h3>
-            <p>Кожна дитина розвивається по-своєму, і ми це поважаємо.</p>
-          </div>
-          <div class="card">
-            <div class="icon bg-green" aria-hidden="true">🤝</div>
-            <h3>Разом</h3>
-            <p>Діти вчаться дружити, ділитися та працювати в команді.</p>
-          </div>
+  <main id="main" tabindex="-1">
+    <section class="sec">
+      <div class="wrap center-block">
+        <div class="masthead" style="padding:0">
+          <svg class="masthead-tipi" viewBox="30 14 140 84" aria-hidden="true" focusable="false"><use href="#tp-head" width="200" height="200"/><g style="stroke:var(--edge)" stroke-width="3" fill="var(--orange)"><ellipse cx="66" cy="94" rx="13" ry="8"/><ellipse cx="134" cy="94" rx="13" ry="8"/></g></svg>
+          <p class="wordmark" aria-hidden="true">TipToe</p>
         </div>
-      </div>
-    </section>
-
-    <section id="offer">
-      <div class="wrap">
-        <h2>Заняття</h2>
-        <p class="section-lead">Різні формати, щоб кожна дитина знайшла те, що їй до душі.</p>
-        <div class="grid">
-          <div class="card">
-            <div class="icon bg-blue" aria-hidden="true">🎨</div>
-            <h3>Творчість</h3>
-            <p>Малювання, ліплення, аплікації та інші творчі заняття.</p>
-          </div>
-          <div class="card">
-            <div class="icon bg-coral" aria-hidden="true">🎵</div>
-            <h3>Музика й рух</h3>
-            <p>Пісні, танці та рухливі ігри для енергійних малюків.</p>
-          </div>
-          <div class="card">
-            <div class="icon bg-yellow" aria-hidden="true">🧩</div>
-            <h3>Розвиток</h3>
-            <p>Ігри на мислення, мовлення, увагу та дрібну моторику.</p>
-          </div>
-          <div class="card">
-            <div class="icon bg-green" aria-hidden="true">📚</div>
-            <h3>Казки й історії</h3>
-            <p>Читання, обговорення та маленькі театральні постановки.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="classes">
-      <div class="wrap">
-        <div class="classes">
-          <h2>Додаткові майстер класи</h2>
-          <p class="section-lead">Окремі тематичні зустрічі, на яких діти пробують щось нове та створюють власні маленькі шедеври.</p>
-          <div class="tags">
-            <span class="tag bg-coral">Кулінарія для малят</span>
-            <span class="tag bg-yellow">Сенсорні ігри</span>
-            <span class="tag bg-green">Природа навколо</span>
-            <span class="tag bg-blue">Святкові вироби</span>
-          </div>
-          <div class="buttons">
-            <a class="btn btn-primary" href="#contacts">Дізнатися розклад</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contacts" class="contacts">
-      <div class="wrap">
-        <h2>Контакти</h2>
-        <p class="section-lead">Напишіть або зателефонуйте нам — розповімо більше й допоможемо обрати заняття.</p>
-        <div class="card">
-          <dl>
-            <div>
-              <dt>Телефон</dt>
-              <dd>[додайте номер телефону]</dd>
-            </div>
-            <div>
-              <dt>Адреса</dt>
-              <dd>[додайте адресу]</dd>
-            </div>
-            <div>
-              <dt>Години роботи</dt>
-              <dd>[додайте години роботи]</dd>
-            </div>
-          </dl>
-        </div>
+        <h1 class="tt-h2"><span class="sr-only">TipToe — </span><span data-i18n="stubH1">Простір для дітей 2–6 років у Харкові</span></h1>
+        <p class="tt-lead" data-i18n="stubP">Сайт скоро запрацює. Ми готуємо його до відкриття центру.</p>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="wrap">© tiptoe — простір для дітей 2-6 років</div>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="tt-caption">© 2026 TipToe</p>
+    </div>
   </footer>
+</div>
 </body>
 </html>

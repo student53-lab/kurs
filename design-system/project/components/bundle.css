@@ -1,0 +1,71 @@
+/* TipToe — спільні стилі компонентів. Кольори й відступи беруться з tokens.json; тут задано решту токенів розмірів. */
+:root {
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 96px;
+  --radius-md: 16px; --radius-lg: 24px; --radius-pill: 999px; --tap-min: 48px;
+  --border-width: 2px; --focus-width: 3px; --focus-offset: 3px; --focus-offset-tight: 2px; --lift: 2px; --press: 4px;
+  --header-offset: 88px; --measure: 68ch; --textarea-min: 112px;
+  --type-h3: 700 1.375rem/1.875rem var(--font-heading);
+  --type-body: 400 1.0625rem/1.75rem var(--font-body); --type-input: 400 1.0625rem/1.5rem var(--font-body);
+  --type-label: 700 1rem/1.25rem var(--font-body); --type-button: 700 1.125rem/1.5rem var(--font-body);
+}
+.tt-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  min-height: var(--tap-min); min-width: var(--tap-min);
+  padding: var(--space-3) var(--space-5);
+  border: var(--border-width) solid var(--edge); border-radius: var(--radius-md);
+  background: var(--accent); color: var(--on-accent);
+  font: var(--type-button);
+  text-decoration: none; cursor: pointer; box-sizing: border-box;
+  box-shadow: var(--shadow-cta);
+  transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.tt-btn:hover, .tt-btn.is-hover { background: var(--accent-hover); transform: translateY(calc(var(--lift) * -1)); box-shadow: var(--shadow-cta-hover); }
+.tt-btn:focus-visible, .tt-btn.is-focus { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-offset); }
+.tt-btn:active, .tt-btn.is-active { background: var(--accent-active); transform: translateY(var(--press)); box-shadow: none; }
+.tt-btn[disabled], .tt-btn.is-disabled { background: var(--surface-alt); color: var(--text-muted); border-color: var(--border); box-shadow: none; transform: none; cursor: not-allowed; }
+
+.tt-btn--secondary { background: var(--surface); color: var(--text); border-color: var(--text); box-shadow: 0 var(--press) 0 0 var(--text); }
+.tt-btn--secondary:hover, .tt-btn--secondary.is-hover { background: var(--surface-alt); box-shadow: 0 calc(var(--press) + var(--lift)) 0 0 var(--text); }
+.tt-btn--secondary:active, .tt-btn--secondary.is-active { background: var(--border-subtle); box-shadow: none; }
+.tt-btn--secondary[disabled], .tt-btn--secondary.is-disabled { background: var(--surface-alt); color: var(--text-muted); border-color: var(--border); box-shadow: none; }
+
+.tt-tag {
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  padding: var(--space-1) var(--space-3); border-radius: var(--radius-pill);
+  background: var(--green); color: var(--ink-deep);
+  font: var(--type-label);
+}
+.tt-tag--surface-alt { background: var(--surface-alt); color: var(--text); }
+.tt-tag--orange { background: var(--orange); color: var(--ink-deep); }
+
+.tt-card {
+  background: var(--surface); color: var(--text);
+  border-radius: var(--radius-lg); padding: var(--space-5);
+  box-shadow: var(--shadow-card);
+  font: var(--type-body);
+  box-sizing: border-box;
+}
+.tt-card h3 { margin: 0 0 var(--space-2); font: var(--type-h3); color: var(--text); }
+.tt-card p { margin: 0; }
+
+/* Доступність: база, пропуск навігації, мова, поля, посилання */
+html { scroll-padding-top: var(--header-offset); }
+.tt-body, .tt-lead { max-width: var(--measure); }
+.tt-skip { position: absolute; left: var(--space-4); top: calc(var(--tap-min) * -2.5); z-index: 100; }
+.tt-skip:focus, .tt-skip:focus-visible { top: var(--space-3); }
+
+.tt-link { display: inline-flex; align-items: center; min-height: var(--tap-min); color: var(--text); font-weight: 700; text-decoration: underline; text-underline-offset: var(--focus-offset); }
+.tt-link:hover { text-decoration-thickness: var(--focus-width); }
+.tt-link:focus-visible { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-offset); }
+
+.tt-input { width: 100%; min-height: var(--tap-min); padding: var(--space-3) var(--space-4); border: var(--border-width) solid var(--border); border-radius: var(--radius-md); background: var(--surface); color: var(--text); font: var(--type-input); box-sizing: border-box; }
+textarea.tt-input { min-height: var(--textarea-min); font: var(--type-body); resize: vertical; }
+.tt-input:focus-visible, input[type="checkbox"]:focus-visible { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-offset); }
+.tt-input[aria-invalid="true"] { border-color: var(--error); }
+
+.tt-lang { display: inline-flex; gap: var(--space-1); padding: var(--border-width); border: var(--border-width) solid var(--border); border-radius: var(--radius-pill); background: var(--surface); }
+.tt-lang a { display: inline-flex; align-items: center; justify-content: center; min-width: var(--tap-min); min-height: calc(var(--tap-min) - var(--space-1)); padding: 0 var(--space-2); border-radius: var(--radius-pill); color: var(--text); font: var(--type-label); text-decoration: none; }
+.tt-lang a[aria-current="true"] { background: var(--text); color: var(--background); }
+.tt-lang a:not([aria-current="true"]):hover { background: var(--surface-alt); }
+.tt-lang a:focus-visible { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-offset-tight); }

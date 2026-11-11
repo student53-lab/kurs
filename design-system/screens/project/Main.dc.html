@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>TipToe — центр для дітей 2–6 років</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Токени розмірів (tokens.json) */
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;--space-9:96px;
+  --radius-md:16px;--radius-lg:24px;--radius-pill:999px;
+  --tap-min:48px;--min-viewport:360px;--container-max:1120px;
+  --border-width:2px;--focus-width:3px;--focus-offset:3px;--focus-offset-tight:2px;--lift:2px;--press:4px;--wordmark-shadow:3px;
+  --header-offset:88px;--measure:68ch;--textarea-min:112px;--content-max:760px;--col-day:140px;--col-time:64px;--col-sm:240px;--col-md:300px;--col-lg:360px;--map-min:320px;--illustration:160px;
+  --wordmark-size:clamp(3rem,11vw,6rem);
+  --tipi-cream:#FFFBF5;--tipi-brown:#5A3E2B;--tipi-wood:#C49A6C;
+  --type-h1:700 2rem/2.5rem var(--font-heading);--type-h1-desktop:700 3.5rem/4rem var(--font-heading);
+  --type-h2:700 1.625rem/2.125rem var(--font-heading);--type-h2-desktop:700 2.5rem/3rem var(--font-heading);
+  --type-h3:700 1.375rem/1.875rem var(--font-heading);--type-h3-desktop:700 1.75rem/2.25rem var(--font-heading);
+  --type-wordmark-sm:700 1.75rem/2rem var(--font-heading);
+  --type-body-lg:400 1.1875rem/1.875rem var(--font-body);--type-body-lg-desktop:400 1.25rem/2rem var(--font-body);
+  --type-body:400 1.0625rem/1.75rem var(--font-body);--type-body-strong:700 1.0625rem/1.75rem var(--font-body);
+  --type-input:400 1.0625rem/1.5rem var(--font-body);--type-nav:600 1.0625rem/1.5rem var(--font-body);
+  --type-small:400 1rem/1.5rem var(--font-body);--type-caption:400 1rem/1.375rem var(--font-body);
+  --type-label:700 1rem/1.25rem var(--font-body);--type-button:700 1.125rem/1.5rem var(--font-body);
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;--type-code:400 1rem/1.5rem var(--font-mono);--ls-h1:-0.01em;--ls-h1-desktop:-0.02em;
+
+  --background:#F7EFE4; --surface-alt:#EAD9C3; --surface:#FFFBF5;
+  --text:#5A3E2B; --ink-deep:#3A2616; --text-muted:#745A47;
+  --orange:#F28C28; --green:#8FA67A;
+  --orange-strong:#954E09; --green-strong:#556644; --on-strong:#FFFFFF;
+  --accent:#F28C28; --accent-hover:#FFA23F; --accent-active:#E27A12; --on-accent:#3A2616;
+  --border:#8A6B52; --border-subtle:#D9C5A8; --error:#A3281D;
+  --font-heading:"Comfortaa","Nunito",system-ui,sans-serif;
+  --font-body:"Nunito",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --shadow-card:0 8px 24px 0 rgba(90,62,43,0.14);
+  --edge:#3A2616; --focus:#3A2616; --success:#556644;
+  --shadow-cta:0 4px 0 0 #3a2616; --shadow-cta-hover:0 6px 0 0 #3a2616;
+}
+.theme-dark{
+  --background:#2A1B10; --surface-alt:#3A2616; --surface:#46321F;
+  --text:#F7EFE4; --text-muted:#D9C5A8;
+  --border:#A68868; --border-subtle:#5A4330; --error:#F08A7E;
+  --edge:#F7EFE4; --focus:#F7EFE4; --success:#8FA67A;
+  --orange-strong:#F28C28; --green-strong:#8FA67A; --on-strong:#2A1B10;
+  --shadow-card:0 8px 24px 0 rgba(0,0,0,0.45);
+  --shadow-cta:0 4px 0 0 #d9c5a8; --shadow-cta-hover:0 6px 0 0 #d9c5a8;
+}
+html{scroll-behavior:smooth;scroll-padding-top:var(--header-offset)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--background);color:var(--text);font:var(--type-body)}
+*{box-sizing:border-box}
+section[id]{scroll-margin-top:var(--header-offset)}
+
+.wrap{width:100%;max-width:calc(var(--container-max) + 2 * var(--space-7));margin:0 auto;padding-inline:var(--space-4)}
+.sec{padding-block:var(--space-8)}
+.tt-h1{font:var(--type-h1);letter-spacing:var(--ls-h1);margin:0}
+.tt-h2{font:var(--type-h2);margin:0}
+.tt-h3{font:var(--type-h3);margin:0}
+.tt-lead{font:var(--type-body-lg);margin:0}
+.tt-body{font:var(--type-body);margin:0;max-width:var(--measure)}
+.tt-strong{font:var(--type-body-strong)}
+.tt-small{font:var(--type-small);color:var(--text-muted);margin:0}
+.tt-caption{font:var(--type-caption);margin:0}
+.tt-label{font:var(--type-label)}
+@media (min-width:768px){
+  .wrap{padding-inline:var(--space-7)}
+  .sec{padding-block:var(--space-9)}
+  .tt-h1{font:var(--type-h1-desktop);letter-spacing:var(--ls-h1-desktop)}
+  .tt-h2{font:var(--type-h2-desktop)}
+  .tt-lead{font:var(--type-body-lg-desktop)}
+  .tt-h3{font:var(--type-h3-desktop)}
+}
+
+.tt-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);min-height:var(--tap-min);min-width:var(--tap-min);padding:var(--space-3) var(--space-5);
+  background:var(--accent);color:var(--on-accent);border:var(--border-width) solid var(--edge);border-radius:var(--radius-md);
+  font:var(--type-button);text-decoration:none;cursor:pointer;box-shadow:var(--shadow-cta);
+  transition:transform .12s ease,box-shadow .12s ease,background-color .12s ease}
+.tt-btn:hover{background:var(--accent-hover);transform:translateY(calc(var(--lift) * -1));box-shadow:var(--shadow-cta-hover)}
+.tt-btn:active{background:var(--accent-active);transform:translateY(var(--press));box-shadow:none}
+.tt-btn:focus-visible{outline:var(--focus-width) solid var(--focus);outline-offset:var(--focus-offset)}
+.tt-btn--secondary{background:var(--surface);color:var(--text);border-color:var(--text);box-shadow:0 var(--press) 0 0 var(--text)}
+.tt-btn--secondary:hover{background:var(--surface-alt);box-shadow:0 calc(var(--press) + var(--lift)) 0 0 var(--text)}
+.tt-btn--secondary:active{background:var(--border-subtle);box-shadow:none}
+.tt-btn[disabled],.tt-btn.is-disabled{background:var(--surface-alt);color:var(--text-muted);border-color:var(--border);box-shadow:none;transform:none;cursor:not-allowed}
+@media (prefers-reduced-motion:reduce){.tt-btn{transition:none}.tt-btn:hover,.tt-btn:active{transform:none}}
+
+.tt-tag{display:inline-flex;align-items:center;padding:var(--space-1) var(--space-3);border-radius:var(--radius-pill);font:var(--type-label);color:var(--ink-deep);white-space:nowrap}
+.tt-tag--orange{background:var(--orange)}
+.tt-tag--green{background:var(--green)}
+
+.tt-input{width:100%;min-height:var(--tap-min);padding:var(--space-3) var(--space-4);border:var(--border-width) solid var(--border);border-radius:var(--radius-md);background:var(--surface);color:var(--text);font:var(--type-input)}
+.tt-input:focus-visible{outline:var(--focus-width) solid var(--focus);outline-offset:var(--focus-offset)}
+.tt-input[aria-invalid="true"]{border-color:var(--error)}
+textarea.tt-input{min-height:var(--textarea-min);resize:vertical;font:var(--type-body)}
+input[type="checkbox"]:focus-visible{outline:var(--focus-width) solid var(--focus);outline-offset:var(--focus-offset)}
+.tt-skip{position:absolute;left:var(--space-4);top:calc(var(--tap-min) * -2.5);z-index:100}
+.tt-skip:focus,.tt-skip:focus-visible{top:var(--space-3)}
+main:focus{outline:none}
+main{scroll-margin-top:var(--header-offset)}
+
+.tt-link{color:var(--text);font-weight:700;text-decoration:underline;text-underline-offset:var(--focus-offset);display:inline-flex;align-items:center;min-height:var(--tap-min)}
+.tt-link:hover{text-decoration-thickness:var(--focus-width)}
+.tt-link:focus-visible,.nav-link:focus-visible,.tt-lang a:focus-visible,.burger:focus-visible,.brand:focus-visible,.theme-btn:focus-visible{outline:var(--focus-width) solid var(--focus);outline-offset:var(--focus-offset)}
+
+.brand{font:var(--type-wordmark-sm);color:var(--text);text-decoration:none;display:inline-flex;align-items:center;min-height:var(--tap-min);border-radius:var(--radius-md)}
+.nav-desktop{display:none;align-items:center;gap:var(--space-1)}
+.nav-link{display:inline-flex;align-items:center;min-height:var(--tap-min);padding:0 var(--space-3);color:var(--text);font:var(--type-nav);text-decoration:none;border-radius:var(--radius-md)}
+.nav-link:hover{background:var(--surface-alt)}
+.theme-btn{display:inline-flex;align-items:center;justify-content:center;width:var(--tap-min);height:var(--tap-min);border:var(--border-width) solid var(--border);border-radius:var(--radius-pill);background:var(--surface);color:var(--text);cursor:pointer}
+.theme-btn:hover{background:var(--surface-alt)}
+.burger{display:inline-flex;align-items:center;justify-content:center;width:var(--tap-min);height:var(--tap-min);border:var(--border-width) solid var(--border);border-radius:var(--radius-md);background:var(--surface);color:var(--text);cursor:pointer}
+.hdr-row{justify-content:flex-end}
+.tt-lang{display:inline-flex;gap:var(--space-1);padding:var(--border-width);border:var(--border-width) solid var(--border);border-radius:var(--radius-pill);background:var(--surface)}
+.tt-lang a{display:inline-flex;align-items:center;justify-content:center;min-width:var(--tap-min);min-height:calc(var(--tap-min) - var(--space-1));padding:0 var(--space-2);border-radius:var(--radius-pill);font:var(--type-label);color:var(--text);text-decoration:none}
+.tt-lang a[aria-current="true"]{background:var(--text);color:var(--background)}
+.tt-lang a:not([aria-current="true"]):hover{background:var(--surface-alt)}
+@media (min-width:1120px){
+  .nav-desktop{display:flex}
+  .burger{display:none}
+  .mobile-menu{display:none !important}
+}
+.tt-lang a:focus-visible{outline-offset:var(--focus-offset-tight)}
+.ph{display:flex;align-items:center;justify-content:center;text-align:center;padding:var(--space-4);border:var(--border-width) dashed var(--border);border-radius:var(--radius-lg);background:var(--surface-alt);color:var(--text-muted);font:var(--type-small)}
+.card{background:var(--surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:var(--space-5)}
+.row-club{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-3) var(--space-5);padding:var(--space-5) 0;border-top:var(--border-width) solid var(--border-subtle)}
+.row-club:first-child{border-top:0}
+.err{display:flex;align-items:center;gap:var(--space-2);color:var(--error);font:var(--type-small);margin-top:var(--space-1)}
+</style>
+</helmet>
+
+<div id="top" class="{{themeClass}}" style="min-height:100vh;display:flex;flex-direction:column;background:var(--background);color:var(--text)">
+  <a class="tt-btn tt-skip" href="#main" onClick="{{goMain}}">{{t.skip}}</a>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="tp-back" viewBox="0 0 200 200"><g style="stroke:var(--edge)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M132 168C196 176 204 104 172 80C168 112 152 128 126 132Z" fill="var(--orange)"/><path d="M172 80C186 92 192 110 188 128C174 124 164 104 172 80Z" fill="var(--tipi-cream)"/><ellipse cx="100" cy="148" rx="38" ry="38" fill="var(--orange)"/><ellipse cx="100" cy="156" rx="22" ry="25" fill="var(--tipi-cream)" stroke="none"/><ellipse cx="80" cy="184" rx="15" ry="8" fill="var(--tipi-brown)"/><ellipse cx="120" cy="184" rx="15" ry="8" fill="var(--tipi-brown)"/></g></symbol><symbol id="tp-head" viewBox="0 0 200 200"><g style="stroke:var(--edge)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M60 66L54 22Q57 17 62 20L92 44Z" fill="var(--orange)"/><path d="M140 66L146 22Q143 17 138 20L108 44Z" fill="var(--orange)"/><path d="M63 56L61 34L79 47Z" fill="var(--tipi-cream)" stroke="none"/><path d="M137 56L139 34L121 47Z" fill="var(--tipi-cream)" stroke="none"/><ellipse cx="100" cy="84" rx="48" ry="40" fill="var(--orange)"/><path d="M57 94Q100 74 143 94Q130 124 100 124Q70 124 57 94Z" fill="var(--tipi-cream)" stroke="none"/><circle cx="68" cy="100" r="6" fill="var(--orange)" stroke="none" opacity=".4"/><circle cx="132" cy="100" r="6" fill="var(--orange)" stroke="none" opacity=".4"/><circle cx="80" cy="82" r="5.5" fill="var(--ink-deep)" stroke="none"/><circle cx="120" cy="82" r="5.5" fill="var(--ink-deep)" stroke="none"/><circle cx="82" cy="80" r="1.8" fill="var(--tipi-cream)" stroke="none"/><circle cx="122" cy="80" r="1.8" fill="var(--tipi-cream)" stroke="none"/><ellipse cx="100" cy="98" rx="6" ry="4.5" fill="var(--ink-deep)" stroke="none"/><path d="M92 108Q100 115 108 108" fill="none" stroke-width="2.5"/></g></symbol></defs></svg>
+
+  <!-- 1. Шапка -->
+  <header onKeyDown="{{headerKey}}" style="position:sticky;top:0;z-index:40;background:var(--background);border-bottom:var(--border-width) solid var(--border-subtle)">
+    <div class="wrap hdr-row" style="display:flex;align-items:center;gap:var(--space-4);min-height:calc(var(--tap-min) + var(--space-5))">
+      <nav class="nav-desktop" aria-label="{{t.navLabel}}">
+        <a class="nav-link" href="#about" onClick="{{goAbout}}">{{t.nAbout}}</a>
+        <a class="nav-link" href="#prices" onClick="{{goPrices}}">{{t.nPrices}}</a>
+        <a class="nav-link" href="#schedule" onClick="{{goSchedule}}">{{t.nSchedule}}</a>
+        <a class="nav-link" href="#masterclasses" onClick="{{goMasters}}">{{t.nMasters}}</a>
+        <a class="nav-link" href="#contacts" onClick="{{goContacts}}">{{t.nContacts}}</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:var(--space-3)">
+        <button class="theme-btn" type="button" aria-label="{{t.theme}}" aria-pressed="{{isDark}}" onClick="{{toggleTheme}}">
+          <sc-if value="{{isDark}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></svg></sc-if>
+          <sc-if value="{{isLight}}" hint-placeholder-val="{{ true }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></sc-if>
+        </button>
+        <div class="tt-lang" role="group" aria-label="{{t.langLabel}}">
+          <a href="#top" lang="uk" hreflang="uk" aria-current="{{isUk}}" aria-label="{{t.uaLabel}}" onClick="{{setUk}}">UA</a>
+          <a href="#top" lang="en" hreflang="en" aria-current="{{isEn}}" aria-label="{{t.enLabel}}" onClick="{{setEn}}">EN</a>
+        </div>
+        <button class="burger" type="button" aria-label="{{t.menu}}" aria-expanded="{{menuOpen}}" aria-controls="mobile-menu" onClick="{{toggleMenu}}">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+      <nav id="mobile-menu" class="mobile-menu" aria-label="{{t.mobileNav}}" style="background:var(--background);border-top:var(--border-width) solid var(--border-subtle)">
+        <div class="wrap" style="display:flex;flex-direction:column;padding-block:var(--space-2) var(--space-4)">
+          <a class="nav-link" style="min-height:calc(var(--space-7) + var(--space-2))" href="#about" onClick="{{goAbout}}">{{t.nAbout}}</a>
+          <a class="nav-link" style="min-height:calc(var(--space-7) + var(--space-2))" href="#prices" onClick="{{goPrices}}">{{t.nPrices}}</a>
+          <a class="nav-link" style="min-height:calc(var(--space-7) + var(--space-2))" href="#schedule" onClick="{{goSchedule}}">{{t.nSchedule}}</a>
+          <a class="nav-link" style="min-height:calc(var(--space-7) + var(--space-2))" href="#masterclasses" onClick="{{goMasters}}">{{t.nMasters}}</a>
+          <a class="nav-link" style="min-height:calc(var(--space-7) + var(--space-2))" href="#contacts" onClick="{{goContacts}}">{{t.nContacts}}</a>
+        </div>
+      </nav>
+    </sc-if>
+  </header>
+  <div style="background:var(--background);display:flex;flex-direction:column;align-items:center;padding:var(--space-2) var(--space-4) 0">
+    <svg viewBox="30 14 140 84" aria-hidden="true" focusable="false" style="display:block;width:min(40%,var(--illustration));height:auto;margin-bottom:calc(var(--space-1) * -1.5);position:relative;z-index:1"><use href="#tp-head" width="200" height="200"/><g style="stroke:var(--edge)" stroke-width="3" fill="var(--orange)"><ellipse cx="66" cy="94" rx="13" ry="8"/><ellipse cx="134" cy="94" rx="13" ry="8"/></g></svg>
+    <a class="brand" href="#top" onClick="{{goTop}}" aria-label="{{t.brandLabel}}" style="font-size:var(--wordmark-size);line-height:1.1;text-shadow:var(--wordmark-shadow) var(--wordmark-shadow) 0 var(--orange),calc(var(--wordmark-shadow) * 2) calc(var(--wordmark-shadow) * 2) 0 var(--orange);padding-bottom:var(--space-3)">TipToe</a>
+  </div>
+
+  <main id="main" tabindex="-1">
+  <!-- 2. Перший екран -->
+  <section class="sec" style="padding-block:var(--space-7) var(--space-8)">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:var(--space-7)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(var(--col-lg),100%),1fr));gap:var(--space-7);align-items:center">
+        <div style="display:flex;flex-direction:column;gap:var(--space-5)">
+          <h1 class="tt-h1">{{t.h1}}</h1>
+        </div>
+      </div>
+
+      <div id="about" style="display:flex;flex-direction:column;gap:var(--space-6);scroll-margin-top:var(--header-offset)">
+      <h2 class="tt-h2">{{t.aboutH2}}</h2>
+      <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(var(--col-sm),100%),1fr));gap:var(--space-5)">
+        <sc-for list="{{steps}}" as="s" hint-placeholder-count="4">
+          <li class="card" style="display:flex;flex-direction:column;gap:var(--space-4)">
+            <div aria-hidden="true" style="display:flex;align-items:center;justify-content:center;padding:var(--space-3);background:var(--surface-alt);border-radius:var(--radius-lg)">
+              <sc-if value="{{s.p1}}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 200 200" aria-hidden="true" focusable="false" style="display:block;width:var(--illustration);height:auto"><use href="#tp-back" width="200" height="200"/><g fill="none" stroke-linecap="round"><path d="M70 130L58 160" style="stroke:var(--edge)" stroke-width="18"/><path d="M70 130L58 160" stroke="var(--orange)" stroke-width="12"/><path d="M130 130L158 94" style="stroke:var(--edge)" stroke-width="18"/><path d="M130 130L158 94" stroke="var(--orange)" stroke-width="12"/></g><use href="#tp-head" width="200" height="200"/></svg></sc-if>
+              <sc-if value="{{s.p2}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 200 200" aria-hidden="true" focusable="false" style="display:block;width:var(--illustration);height:auto"><use href="#tp-back" width="200" height="200"/><g fill="none" stroke-linecap="round"><path d="M130 130L142 160" style="stroke:var(--edge)" stroke-width="18"/><path d="M130 130L142 160" stroke="var(--orange)" stroke-width="12"/><path d="M70 132L36 128" style="stroke:var(--edge)" stroke-width="18"/><path d="M70 132L36 128" stroke="var(--orange)" stroke-width="12"/></g><rect x="4" y="106" width="30" height="26" rx="8" fill="var(--tipi-cream)" style="stroke:var(--edge)" stroke-width="3"/><path d="M11 119H27" stroke="var(--orange)" stroke-width="4" stroke-linecap="round"/><use href="#tp-head" width="200" height="200"/></svg></sc-if>
+              <sc-if value="{{s.p3}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 200 200" aria-hidden="true" focusable="false" style="display:block;width:var(--illustration);height:auto"><use href="#tp-back" width="200" height="200"/><path d="M120 146L168 110" style="stroke:var(--edge)" stroke-width="10" stroke-linecap="round"/><path d="M120 146L168 110" stroke="var(--tipi-wood)" stroke-width="5" stroke-linecap="round"/><circle cx="172" cy="106" r="7" fill="var(--tipi-brown)" style="stroke:var(--edge)" stroke-width="3"/><ellipse cx="100" cy="154" rx="26" ry="19" fill="var(--tipi-wood)" style="stroke:var(--edge)" stroke-width="3"/><circle cx="100" cy="154" r="6" fill="var(--ink-deep)"/><g fill="none" stroke-linecap="round"><path d="M70 132L96 148" style="stroke:var(--edge)" stroke-width="18"/><path d="M70 132L96 148" stroke="var(--orange)" stroke-width="12"/><path d="M130 132L150 124" style="stroke:var(--edge)" stroke-width="18"/><path d="M130 132L150 124" stroke="var(--orange)" stroke-width="12"/></g><use href="#tp-head" width="200" height="200"/></svg></sc-if>
+              <sc-if value="{{s.p4}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 200 200" aria-hidden="true" focusable="false" style="display:block;width:var(--illustration);height:auto"><use href="#tp-back" width="200" height="200"/><g fill="none" stroke-linecap="round"><path d="M130 130L142 160" style="stroke:var(--edge)" stroke-width="18"/><path d="M130 130L142 160" stroke="var(--orange)" stroke-width="12"/><path d="M70 130L42 94" style="stroke:var(--edge)" stroke-width="18"/><path d="M70 130L42 94" stroke="var(--orange)" stroke-width="12"/><path d="M26 92Q20 82 26 72M16 96Q8 82 16 68" style="stroke:var(--edge)" stroke-width="3"/></g><use href="#tp-head" width="200" height="200"/></svg></sc-if>
+            </div>
+            <div style="display:flex;align-items:center;gap:var(--space-3)">
+              <span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:calc(var(--space-6) + var(--space-2));height:calc(var(--space-6) + var(--space-2));border-radius:var(--radius-pill);background:var(--orange);color:var(--ink-deep);font:var(--type-h3)">{{s.n}}</span>
+              <h3 class="tt-h3" style="font:var(--type-h3)">{{s.title}}</h3>
+            </div>
+            <p class="tt-body">{{s.text}}</p>
+          </li>
+        </sc-for>
+      </ol>
+      </div>
+
+      <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(var(--col-sm),100%),1fr));gap:var(--space-5)">
+        <li style="display:flex;align-items:center;gap:var(--space-4)">
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="4"/><path d="M4 26c0-4 3-7 7-7s7 3 7 7"/><circle cx="23" cy="14" r="3" fill="var(--orange)"/><path d="M20 26c0-3 2-5 5-5s3 1 3 2"/></svg>
+          <span class="tt-strong">{{t.b1}}</span>
+        </li>
+        <li style="display:flex;align-items:center;gap:var(--space-4)">
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 27V6h14v21"/><path d="M4 27h24"/><circle cx="18" cy="17" r="2" fill="var(--orange)"/></svg>
+          <span class="tt-strong">{{t.b2}}</span>
+        </li>
+        <li style="display:flex;align-items:center;gap:var(--space-4)">
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="17" width="10" height="10" rx="2"/><rect x="17" y="17" width="10" height="10" rx="2"/><rect x="11" y="6" width="10" height="10" rx="2" fill="var(--orange)"/></svg>
+          <span class="tt-strong">{{t.b3}}</span>
+        </li>
+        <li style="display:flex;align-items:center;gap:var(--space-4)">
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4l10 4v8c0 6-4 10-10 12C10 26 6 22 6 16V8z"/><circle cx="16" cy="14" r="3" fill="var(--orange)"/><path d="M16 17v5"/></svg>
+          <span class="tt-strong">{{t.b4}}</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+
+  <!-- 5. Ціни -->
+  <section id="prices" class="sec" style="background:var(--surface-alt)">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:var(--space-6)">
+      <div style="display:flex;flex-direction:column;gap:var(--space-4);max-width:var(--content-max)">
+        <h2 class="tt-h2">{{t.pricesH2}}</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+        <div class="card" style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-4) var(--space-5)">
+          <span class="tt-tag tt-tag--orange" style="flex:0 0 auto">{{t.noBooking}}</span>
+          <div style="flex:1 1 var(--col-sm);display:flex;flex-direction:column;gap:var(--space-1)">
+            <h3 class="tt-h3">{{t.hourly}}</h3>
+            <p class="tt-small">{{t.hourlyNote}}</p>
+          </div>
+          <p class="tt-body" style="white-space:nowrap"><span class="tt-strong">200 ₴</span> {{t.perHour}}</p>
+        </div>
+        <div class="card" style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-4) var(--space-5)">
+          <span class="tt-tag tt-tag--green" style="flex:0 0 auto">{{t.byBooking}}</span>
+          <div style="flex:1 1 var(--col-sm);display:flex;flex-direction:column;gap:var(--space-1)">
+            <h3 class="tt-h3">{{t.classes}}</h3>
+            <p class="tt-small">{{t.classesNote}}</p>
+          </div>
+          <p class="tt-body" style="white-space:nowrap"><span class="tt-strong">200 ₴</span> {{t.perClass}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Розклад гуртків -->
+  <section id="schedule" class="sec">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:var(--space-6)">
+      <div style="display:flex;flex-direction:column;gap:var(--space-4);max-width:var(--content-max)">
+        <h2 class="tt-h2">{{t.scheduleH2}}</h2>
+      </div>
+      <ul class="card" aria-label="{{t.scheduleH2}}" style="padding:var(--space-2) var(--space-5);margin:0;list-style:none">
+        <sc-for list="{{rows}}" as="r" hint-placeholder-count="11">
+          <li class="row-club" style="gap:var(--space-3) var(--space-5)">
+            <span class="tt-strong" style="flex:0 0 var(--col-day)">{{r.day}}</span>
+            <span class="tt-strong" style="flex:0 0 var(--col-time)">{{r.time}}</span>
+            <span class="tt-tag tt-tag--green">{{r.age}}</span>
+            <span class="tt-body" style="flex:1 1 var(--col-sm)">{{r.focus}}</span>
+            <a class="tt-btn" style="margin-left:auto" href="#zayavka" aria-label="{{r.label}}" onClick="{{r.pick}}">{{t.signup}}</a>
+          </li>
+        </sc-for>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7. Майстер-класи -->
+  <section id="masterclasses" class="sec" style="background:var(--surface-alt)">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:var(--space-6)">
+      <h2 class="tt-h2">{{t.mastersH2}}</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(var(--col-md),100%),1fr));gap:var(--space-5)">
+        <sc-for list="{{masters}}" as="m" hint-placeholder-count="2">
+          <div class="card" style="display:flex;flex-direction:column;gap:var(--space-4)">
+            <h3 class="tt-h3">{{m.name}}</h3>
+            <p class="tt-body">{{m.date}}</p>
+            <p class="tt-small">{{m.price}}</p>
+            <a class="tt-btn" style="align-self:flex-start" href="#zayavka" aria-label="{{m.label}}" onClick="{{m.pick}}">{{t.signup}}</a>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Форма заявки -->
+  <section id="zayavka" class="sec">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:var(--space-6)">
+      <div style="display:flex;flex-direction:column;gap:var(--space-4);max-width:var(--content-max)">
+        <h2 class="tt-h2">{{t.formH2}}</h2>
+        <p class="tt-lead">{{t.formLead}}</p>
+      </div>
+
+      <sc-if value="{{sent}}" hint-placeholder-val="{{ false }}">
+        <div class="card" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(var(--col-sm),100%),1fr));gap:var(--space-5);align-items:center;max-width:var(--content-max)" role="status">
+          <div aria-hidden="true" style="display:flex;align-items:center;justify-content:center;padding:var(--space-3);background:var(--surface-alt);border-radius:var(--radius-lg)"><svg viewBox="0 0 200 200" aria-hidden="true" focusable="false" style="display:block;width:var(--illustration);height:auto"><use href="#tp-back" width="200" height="200"/><g fill="none" stroke-linecap="round"><path d="M130 130L142 160" style="stroke:var(--edge)" stroke-width="18"/><path d="M130 130L142 160" stroke="var(--orange)" stroke-width="12"/><path d="M70 130L42 94" style="stroke:var(--edge)" stroke-width="18"/><path d="M70 130L42 94" stroke="var(--orange)" stroke-width="12"/><path d="M26 92Q20 82 26 72M16 96Q8 82 16 68" style="stroke:var(--edge)" stroke-width="3"/></g><use href="#tp-head" width="200" height="200"/></svg></div>
+          <h3 class="tt-h3">{{t.thanks}}</h3>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{notSent}}" hint-placeholder-val="{{ true }}">
+        <form class="card" onSubmit="{{submit}}" novalidate style="max-width:var(--content-max);padding:var(--space-6) var(--space-5);display:flex;flex-direction:column;gap:var(--space-5)">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(var(--col-md),100%),1fr));gap:var(--space-5)">
+            <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <label class="tt-label" for="f-name">{{t.lName}}</label>
+              <input class="tt-input" id="f-name" type="text" autocomplete="name" value="{{name}}" onInput="{{onName}}" aria-required="true" aria-invalid="{{invalidName}}" aria-describedby="e-name">
+              <sc-if value="{{errName}}" hint-placeholder-val="{{ false }}">
+                <div class="err" id="e-name" role="alert"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="M10 6v5M10 14v.01"/></svg><span>{{errName}}</span></div>
+              </sc-if>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <label class="tt-label" for="f-phone">{{t.lPhone}}</label>
+              <input class="tt-input" id="f-phone" type="tel" inputmode="tel" autocomplete="tel" value="{{phone}}" onInput="{{onPhone}}" aria-required="true" aria-invalid="{{invalidPhone}}" aria-describedby="e-phone">
+              <sc-if value="{{errPhone}}" hint-placeholder-val="{{ false }}">
+                <div class="err" id="e-phone" role="alert"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="M10 6v5M10 14v.01"/></svg><span>{{errPhone}}</span></div>
+              </sc-if>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <label class="tt-label" for="f-club">{{t.lClub}}</label>
+              <select class="tt-input" id="f-club" value="{{club}}" onChange="{{onClub}}">
+                <sc-for list="{{options}}" as="o" hint-placeholder-count="4">
+                  <option value="{{o.value}}">{{o.label}}</option>
+                </sc-for>
+              </select>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <label class="tt-label" for="f-age">{{t.lAge}}</label>
+              <input class="tt-input" id="f-age" type="text" inputmode="numeric" value="{{age}}" onInput="{{onAge}}">
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+            <label class="tt-label" for="f-comment">{{t.lComment}}</label>
+            <textarea class="tt-input" id="f-comment" value="{{comment}}" onInput="{{onComment}}"></textarea>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:var(--space-1)">
+            <label for="f-consent" style="display:flex;align-items:center;gap:var(--space-3);min-height:var(--tap-min);cursor:pointer">
+              <input id="f-consent" type="checkbox" checked="{{consent}}" onChange="{{onConsent}}" aria-required="true" aria-invalid="{{invalidConsent}}" aria-describedby="e-consent" style="width:var(--space-5);height:var(--space-5);flex:none;accent-color:var(--text)">
+              <span class="tt-body">{{t.consent}}</span>
+            </label>
+            <sc-if value="{{errConsent}}" hint-placeholder-val="{{ false }}">
+              <div class="err" id="e-consent" role="alert"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="M10 6v5M10 14v.01"/></svg><span>{{errConsent}}</span></div>
+            </sc-if>
+          </div>
+          <div>
+            <button class="tt-btn" type="submit">{{t.signup}}</button>
+          </div>
+        </form>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- 9. Контакти -->
+  <section id="contacts" class="sec" style="background:var(--surface-alt)">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:var(--space-6)">
+      <h2 class="tt-h2">{{t.contactsH2}}</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(var(--col-md),100%),1fr));gap:var(--space-6);align-items:stretch">
+        <div style="display:flex;flex-direction:column;gap:var(--space-5)">
+          <div style="display:flex;gap:var(--space-4);align-items:flex-start">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M16 29s9-8 9-15a9 9 0 0 0-18 0c0 7 9 15 9 15z"/><circle cx="16" cy="14" r="3.5" fill="var(--orange)"/></svg>
+            <div><p class="tt-strong" style="margin:0">{{t.address}}</p><p class="tt-body">{{t.addressVal}}</p></div>
+          </div>
+          <div style="display:flex;gap:var(--space-4);align-items:flex-start">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><circle cx="16" cy="16" r="12"/><path d="M16 9v7l5 3" /></svg>
+            <div><p class="tt-strong" style="margin:0">{{t.hours}}</p><p class="tt-body">10:00–20:00</p></div>
+          </div>
+          <div style="display:flex;gap:var(--space-4);align-items:flex-start">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M9 4h5l2 7-3 2a15 15 0 0 0 6 6l2-3 7 2v5a3 3 0 0 1-3 3A22 22 0 0 1 6 7a3 3 0 0 1 3-3z"/></svg>
+            <div><p class="tt-strong" style="margin:0">{{t.phone}}</p><a class="tt-link" href="tel:+380509100000">+380 50 910 00 00</a></div>
+          </div>
+          <div style="display:flex;gap:var(--space-4);align-items:flex-start">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><rect x="5" y="5" width="22" height="22" rx="7"/><circle cx="16" cy="16" r="5"/><circle cx="22.5" cy="9.5" r="1.5" fill="var(--orange)"/></svg>
+            <div><p class="tt-strong" style="margin:0">Instagram</p><a class="tt-link" href="https://www.instagram.com/" aria-label="Instagram TipToe">TipToe</a></div>
+          </div>
+        </div>
+        <div role="img" aria-label="{{t.mapLabel}}" style="min-height:var(--map-min);border-radius:var(--radius-lg);overflow:hidden;background:var(--surface-alt);border:var(--border-width) solid var(--border-subtle)"><svg viewBox="0 0 480 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" style="display:block;width:100%;height:100%;min-height:var(--map-min)"><rect width="480" height="320" style="fill:var(--surface-alt)"/><path d="M-10 250C80 220 140 280 230 250S400 190 490 220V330H-10Z" style="fill:var(--green);opacity:.55"/><path d="M300 -10C320 60 380 90 360 170S400 280 430 330" fill="none" stroke-width="22" stroke-linecap="round" style="stroke:var(--border-subtle)"/><rect x="40" y="30" width="90" height="60" rx="10" style="fill:var(--surface)"/><rect x="150" y="30" width="110" height="60" rx="10" style="fill:var(--surface)"/><rect x="40" y="110" width="60" height="80" rx="10" style="fill:var(--surface)"/><rect x="120" y="110" width="140" height="80" rx="10" style="fill:var(--surface)"/><rect x="380" y="30" width="80" height="110" rx="10" style="fill:var(--surface)"/><rect x="40" y="210" width="110" height="46" rx="10" style="fill:var(--surface)"/><g fill="none" stroke-linecap="round" style="stroke:var(--surface)"><path d="M-10 100H490" stroke-width="12"/><path d="M140 -10V330" stroke-width="12"/><path d="M-10 200L490 170" stroke-width="10"/><path d="M270 -10V330" stroke-width="10"/></g></svg></div>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- 10. Футер -->
+  <footer style="background:var(--background);border-top:var(--border-width) solid var(--border-subtle);padding-block:var(--space-7)">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:var(--space-6)">
+      <div style="display:flex;flex-wrap:wrap;gap:var(--space-6);justify-content:space-between;align-items:flex-start">
+        <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+          <span class="brand" style="min-height:calc(var(--space-6) + var(--space-2))">TipToe</span>
+          <p class="tt-small" style="color:var(--text)">{{t.footerAbout}}</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <a class="tt-link" href="tel:+380509100000">+380 50 910 00 00</a>
+          <a class="tt-link" href="https://www.instagram.com/" aria-label="Instagram TipToe">Instagram</a>
+        </div>
+        <div class="tt-lang" role="group" aria-label="{{t.langLabel}}">
+          <a href="#top" lang="uk" hreflang="uk" aria-current="{{isUk}}" aria-label="{{t.uaLabel}}" onClick="{{setUk}}">UA</a>
+          <a href="#top" lang="en" hreflang="en" aria-current="{{isEn}}" aria-label="{{t.enLabel}}" onClick="{{setEn}}">EN</a>
+        </div>
+      </div>
+      <p class="tt-caption">© 2026 TipToe</p>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":6400}}'>
+class Component extends DCLogic {
+  state = { lang: 'uk', dark: (typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches), menuOpen: false, sent: false, club: '', name: '', phone: '+380', age: '', comment: '', consent: false, errName: '', errPhone: '', errConsent: '' };
+
+  fmtPhone(raw) {
+    let d = String(raw || '').replace(/\D/g, '');
+    if (d.length < 3) d = '380';
+    else if (!d.startsWith('380')) d = '380' + d;
+    d = d.slice(0, 12);
+    let r = '+' + d.slice(0, 3);
+    if (d.length > 3) r += ' ' + d.slice(3, 5);
+    if (d.length > 5) r += ' ' + d.slice(5, 8);
+    if (d.length > 8) r += ' ' + d.slice(8, 10);
+    if (d.length > 10) r += ' ' + d.slice(10, 12);
+    return r;
+  }
+
+  // Прокрутка до розділу всередині сторінки (працює і в Play, і у фокусованому режимі)
+  scrollToId(e, id) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (this.state.menuOpen) this.setState({ menuOpen: false });
+    const node = e && e.currentTarget;
+    const root = node && node.getRootNode ? node.getRootNode() : document;
+    let el = root && root.getElementById ? root.getElementById(id) : null;
+    if (!el) el = document.getElementById(id);
+    if (!el) return;
+    const calm = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'start' });
+    if (id === 'main') { try { el.focus({ preventScroll: true }); } catch (err) { /* без фокуса */ } }
+  }
+
+  setLang(e, lang) {
+    if (e && e.preventDefault) e.preventDefault();
+    this.setState({ lang });
+    try { document.documentElement.setAttribute('lang', lang); } catch (err) { /* без lang */ }
+  }
+
+  dict(lang) {
+    const D = {
+      uk: {
+        skip: 'Перейти до основного вмісту', navLabel: 'Основне меню', nAbout: 'Про нас', nPrices: 'Ціни', nSchedule: 'Розклад', nMasters: 'Майстер-класи', nContacts: 'Контакти',
+        theme: 'Темна тема', langLabel: 'Мова сайту', uaLabel: 'UA — українська', enLabel: 'EN — English', signup: 'Записатися', menu: 'Меню', mobileNav: 'Меню для смартфона',
+        brandLabel: 'TipToe — на початок сторінки',
+        h1: 'Поки ви займаєтеся своїми справами — дитина грається, творить і вчиться',
+        aboutH2: 'TipToe — простір для дітей 2–6 років. Як це працює',
+        b1: 'Педагоги поруч', b2: 'Без попереднього запису', b3: 'Творчість і гра', b4: 'Є власне укриття',
+        pricesH2: 'Ціни', noBooking: 'Без запису', hourly: 'Погодинне відвідування', hourlyNote: 'Приходьте у будь-який робочий час: запис і заявка не потрібні.', perHour: 'за годину',
+        byBooking: 'За записом', classes: 'Гуртки', classesNote: 'Заняття за розкладом.', perClass: 'за заняття',
+        scheduleH2: 'Розклад гуртків', mastersH2: 'Майстер-класи',
+        formH2: 'Залишити заявку', formLead: 'Адміністратор передзвонить вам. Для вільного відвідування заявка не потрібна.', thanks: 'Дякуємо! Ми передзвонимо вам найближчим часом',
+        lName: "Ім'я батьків (обов'язково)", lPhone: "Телефон (обов'язково)", lClub: 'Гурток або майстер-клас', lAge: 'Вік дитини', lComment: 'Коментар', consent: 'Погоджуюся на обробку персональних даних',
+        errName: "Вкажіть ім'я", errPhone: 'Введіть номер у форматі +380 XX XXX XX XX', errConsent: 'Підтвердьте згоду на обробку даних',
+        contactsH2: 'Контакти', address: 'Адреса', addressVal: 'м. Харків, пр. Науки 017', hours: 'Графік роботи', phone: 'Телефон', mapLabel: 'Приклад карти без позначеної адреси',
+        footerAbout: 'Центр для дітей 2–6 років, Харків',
+        choose: 'Оберіть зі списку', question: 'У мене питання', bookPrefix: 'Записатися'
+      },
+      en: {
+        skip: 'Skip to main content', navLabel: 'Main menu', nAbout: 'About', nPrices: 'Prices', nSchedule: 'Schedule', nMasters: 'Workshops', nContacts: 'Contacts',
+        theme: 'Dark theme', langLabel: 'Site language', uaLabel: 'UA — Ukrainian', enLabel: 'EN — English', signup: 'Sign up', menu: 'Menu', mobileNav: 'Mobile menu',
+        brandLabel: 'TipToe — back to top',
+        h1: 'While you take care of your own things, your child plays, creates and learns',
+        aboutH2: 'TipToe — a space for children aged 2–6. How it works',
+        b1: 'Teachers nearby', b2: 'No advance booking', b3: 'Creativity and play', b4: 'We have our own shelter',
+        pricesH2: 'Prices', noBooking: 'No booking', hourly: 'Hourly visit', hourlyNote: 'Come in at any working hour: no booking or request needed.', perHour: 'per hour',
+        byBooking: 'By booking', classes: 'Classes', classesNote: 'Classes follow the schedule.', perClass: 'per class',
+        scheduleH2: 'Class schedule', mastersH2: 'Workshops',
+        formH2: 'Send a request', formLead: 'The administrator will call you back. No request is needed for drop-in visits.', thanks: 'Thank you! We will call you back shortly',
+        lName: "Parent's name (required)", lPhone: 'Phone (required)', lClub: 'Class or workshop', lAge: "Child's age", lComment: 'Comment', consent: 'I agree to the processing of personal data',
+        errName: 'Enter your name', errPhone: 'Enter the number as +380 XX XXX XX XX', errConsent: 'Please confirm consent to data processing',
+        contactsH2: 'Contacts', address: 'Address', addressVal: 'Kharkiv, 017 Nauky Ave.', hours: 'Opening hours', phone: 'Phone', mapLabel: 'Sample map with no address marked',
+        footerAbout: "Children's centre for ages 2–6, Kharkiv",
+        choose: 'Choose from the list', question: 'I have a question', bookPrefix: 'Sign up'
+      }
+    };
+    return D[lang] || D.uk;
+  }
+
+  renderVals() {
+    const s = this.state;
+    const en = s.lang === 'en';
+    const t = this.dict(s.lang);
+    const pick = (value) => (e) => { this.setState({ club: value }); this.scrollToId(e, 'zayavka'); };
+    const mk = (day, time, age) => { const value = day + ', ' + time + ' · група ' + age; return { time, age, pick: pick(value), value }; };
+    const dn = en
+      ? { mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday' }
+      : { mon: 'Понеділок', tue: 'Вівторок', wed: 'Середа', thu: 'Четвер', fri: "П'ятниця" };
+    const ageTxt = (a) => (en ? a.replace('років', 'years').replace('роки', 'years') : a);
+    const days = [
+      { day: dn.mon, slots: [mk('Пн', '10:00', '2–3 роки'), mk('Пн', '11:00', '3–4 роки')] },
+      { day: dn.tue, slots: [mk('Вт', '16:30', '5–6 років')] },
+      { day: dn.wed, slots: [mk('Ср', '10:00', '2–3 роки'), mk('Ср', '11:00', '3–4 роки')] },
+      { day: dn.thu, slots: [mk('Чт', '16:30', '5–6 років')] },
+      { day: dn.fri, slots: [mk('Пт', '10:00', '2–3 роки'), mk('Пт', '11:00', '3–4 роки'), mk('Пт', '16:30', '5–6 років')] }
+    ];
+    const groups = en
+      ? [
+        { age: '2–3 роки', focus: 'Adaptation, sensory play, motor skills, emotions' },
+        { age: '3–4 роки', focus: 'Speech, socialisation, role play' },
+        { age: '5–6 років', focus: 'Logic, curiosity, school readiness' }
+      ]
+      : [
+        { age: '2–3 роки', focus: 'Адаптація, сенсорика, моторика, емоції' },
+        { age: '3–4 роки', focus: 'Мовлення, соціалізація, рольова гра' },
+        { age: '5–6 років', focus: 'Логіка, пізнавальний інтерес, підготовка до школи' }
+      ];
+    const rows = [];
+    days.forEach((d) => d.slots.forEach((sl) => rows.push({
+      day: d.day, time: sl.time, age: ageTxt(sl.age),
+      focus: (groups.find((g) => g.age === sl.age) || {}).focus, pick: sl.pick,
+      label: t.bookPrefix + ': ' + d.day + ', ' + sl.time + ', ' + ageTxt(sl.age)
+    })));
+    const mTitles = en ? ['Seasonal workshops', 'Creative workshops'] : ['Сезонні майстер-класи', 'Творчі майстер-класи'];
+    const mDates = en ? ['Saturday, 12:00', 'Saturday, 14:00'] : ['Субота, 12:00', 'Субота, 14:00'];
+    const mValues = ['Сезонні майстер-класи', 'Творчі майстер-класи'];
+    const masters = mValues.map((value, i) => ({
+      name: mTitles[i], date: mDates[i], price: '500 ₴', value, pick: pick(value), label: t.bookPrefix + ': ' + mTitles[i]
+    }));
+    const slotOptions = [];
+    days.forEach((d) => d.slots.forEach((sl) => slotOptions.push({ value: sl.value, label: d.day + ', ' + sl.time + ' · ' + (en ? 'group ' : 'група ') + ageTxt(sl.age) })));
+    const options = [{ value: '', label: t.choose }]
+      .concat(slotOptions)
+      .concat([
+        { value: mValues[0], label: mTitles[0] },
+        { value: mValues[1], label: mTitles[1] },
+        { value: 'Питання', label: t.question }
+      ]);
+    const steps = en
+      ? [
+        { n: '1', title: 'Arrive', text: 'Come in at any working hour — our teachers will greet you and your little one.', p1: true },
+        { n: '2', title: 'Leave your child', text: 'Your child meets the teachers and other kids and chooses what to do.', p2: true },
+        { n: '3', title: 'Take care of your things', text: 'Shopping, sport or a quiet coffee — a few hours are yours.', p3: true },
+        { n: '4', title: 'Pick up a happy child', text: 'You come back to a child who will gladly tell you what they did.', p4: true }
+      ]
+      : [
+        { n: '1', title: 'Прийшли', text: 'Приходьте у будь-який робочий час — педагоги зустрінуть вас із малюком.', p1: true },
+        { n: '2', title: 'Залишили дитину', text: 'Дитина знайомиться з педагогами й однолітками та вибирає, чим зайнятися.', p2: true },
+        { n: '3', title: 'Займаєтеся справами', text: 'Покупки, спорт чи кава на самоті — кілька годин належать вам.', p3: true },
+        { n: '4', title: 'Забрали щасливу дитину', text: 'Повертаєтеся до дитини, яка охоче розкаже, чим займалася.', p4: true }
+      ];
+    return {
+      t, isUk: !en, isEn: en,
+      setUk: (e) => this.setLang(e, 'uk'), setEn: (e) => this.setLang(e, 'en'),
+      goMain: (e) => this.scrollToId(e, 'main'), goTop: (e) => this.scrollToId(e, 'top'),
+      goAbout: (e) => this.scrollToId(e, 'about'), goPrices: (e) => this.scrollToId(e, 'prices'),
+      goSchedule: (e) => this.scrollToId(e, 'schedule'), goMasters: (e) => this.scrollToId(e, 'masterclasses'),
+      goContacts: (e) => this.scrollToId(e, 'contacts'), goForm: (e) => this.scrollToId(e, 'zayavka'),
+      headerKey: (e) => { if (e.key === 'Escape' && this.state.menuOpen) { this.setState({ menuOpen: false }); const b = document.querySelector('.burger'); if (b) b.focus(); } },
+      themeClass: s.dark ? 'theme-dark' : '', isDark: s.dark, isLight: !s.dark,
+      toggleTheme: () => this.setState({ dark: !this.state.dark }),
+      menuOpen: s.menuOpen,
+      toggleMenu: () => this.setState({ menuOpen: !this.state.menuOpen }),
+      steps, days, rows, masters, options,
+      sent: s.sent, notSent: !s.sent,
+      club: s.club, name: s.name, phone: s.phone, age: s.age, comment: s.comment, consent: s.consent,
+      errName: s.errName ? t.errName : '', errPhone: s.errPhone ? t.errPhone : '', errConsent: s.errConsent ? t.errConsent : '',
+      invalidName: !!s.errName, invalidPhone: !!s.errPhone, invalidConsent: !!s.errConsent,
+      onClub: (e) => this.setState({ club: e.target.value }),
+      onName: (e) => this.setState({ name: e.target.value, errName: '' }),
+      onPhone: (e) => this.setState({ phone: this.fmtPhone(e.target.value), errPhone: '' }),
+      onAge: (e) => this.setState({ age: e.target.value }),
+      onComment: (e) => this.setState({ comment: e.target.value }),
+      onConsent: (e) => this.setState({ consent: e.target.checked, errConsent: '' }),
+      submit: (e) => {
+        if (e && e.preventDefault) e.preventDefault();
+        const st = this.state;
+        const digits = st.phone.replace(/\D/g, '');
+        const errName = st.name.trim() ? '' : 'x';
+        const errPhone = digits.length === 12 ? '' : 'x';
+        const errConsent = st.consent ? '' : 'x';
+        if (errName || errPhone || errConsent) {
+          this.setState({ errName, errPhone, errConsent });
+          const firstId = errName ? 'f-name' : errPhone ? 'f-phone' : 'f-consent';
+          setTimeout(() => { const el = document.getElementById(firstId); if (el) el.focus(); }, 0);
+        } else {
+          this.setState({ sent: true });
+        }
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

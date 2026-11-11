@@ -1,0 +1,227 @@
+/* TipToe — компоненти tt-* з усіма станами (за design-system/project/components/bundle.css). */
+
+/* Основна кнопка */
+.tt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  min-width: var(--tap-min);
+  padding: var(--space-3) var(--space-5);
+  border: var(--border-width) solid var(--edge);
+  border-radius: var(--radius-md);
+  background: var(--accent);
+  color: var(--on-accent);
+  font: var(--type-button);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-cta);
+  transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.tt-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(calc(var(--lift) * -1));
+  box-shadow: var(--shadow-cta-hover);
+}
+.tt-btn:focus-visible { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-offset); }
+.tt-btn:active {
+  background: var(--accent-active);
+  transform: translateY(var(--press));
+  box-shadow: none;
+}
+.tt-btn[disabled],
+.tt-btn[aria-disabled="true"] {
+  background: var(--surface-alt);
+  color: var(--text-muted);
+  border-color: var(--border);
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* Вторинна кнопка */
+.tt-btn--secondary {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--text);
+  box-shadow: 0 var(--press) 0 0 var(--text);
+}
+.tt-btn--secondary:hover {
+  background: var(--surface-alt);
+  box-shadow: 0 calc(var(--press) + var(--lift)) 0 0 var(--text);
+}
+.tt-btn--secondary:active { background: var(--border-subtle); box-shadow: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-btn:hover, .tt-btn:active { transform: none; }
+}
+
+/* Мітка */
+.tt-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--green);
+  color: var(--ink-deep);
+  font: var(--type-label);
+  white-space: nowrap;
+}
+.tt-tag--orange { background: var(--orange); }
+.tt-tag--surface-alt { background: var(--surface-alt); color: var(--text); }
+
+/* Картка */
+.tt-card {
+  background: var(--surface);
+  color: var(--text);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-card);
+}
+
+/* Посилання */
+.tt-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: var(--focus-offset);
+}
+.tt-link:hover { text-decoration-thickness: var(--focus-width); }
+
+/* Поля форми */
+.tt-field { display: flex; flex-direction: column; gap: var(--space-2); }
+
+.tt-input {
+  width: 100%;
+  min-height: var(--tap-min);
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text);
+  font: var(--type-input);
+}
+.tt-input:hover { border-color: var(--text); }
+.tt-input:focus-visible { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-offset); }
+.tt-input[disabled] { background: var(--surface-alt); color: var(--text-muted); cursor: not-allowed; }
+.tt-input[aria-invalid="true"] { border-color: var(--error); }
+textarea.tt-input { min-height: var(--textarea-min); font: var(--type-body); resize: vertical; }
+
+select.tt-input {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: calc(var(--space-4) + var(--space-5));
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(-45deg, transparent 50%, currentColor 50%);
+  background-position: calc(100% - var(--space-5)) 50%, calc(100% - var(--space-4)) 50%;
+  background-size: var(--space-2) var(--space-2), var(--space-2) var(--space-2);
+  background-repeat: no-repeat;
+}
+
+/* Згода */
+.tt-check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--tap-min);
+  cursor: pointer;
+}
+.tt-check input {
+  width: var(--space-5);
+  height: var(--space-5);
+  flex: none;
+  margin: 0;
+  accent-color: var(--text);
+  cursor: pointer;
+}
+.tt-check input:focus-visible { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-offset); }
+.tt-check input[aria-invalid="true"] { outline: var(--border-width) solid var(--error); outline-offset: var(--border-width); }
+
+/* Помилка поля: значок + текст */
+.tt-error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+  color: var(--error);
+  font: var(--type-small);
+}
+.tt-error svg { flex: none; }
+
+/* Перемикач мови */
+.tt-lang {
+  display: inline-flex;
+  gap: var(--space-1);
+  padding: var(--border-width);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+}
+.tt-lang a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tap-min);
+  min-height: calc(var(--tap-min) - var(--space-1));
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-pill);
+  color: var(--text);
+  font: var(--type-label);
+  text-decoration: none;
+}
+.tt-lang a[aria-current="true"] { background: var(--text); color: var(--background); }
+.tt-lang a:not([aria-current="true"]):hover { background: var(--surface-alt); }
+.tt-lang a:focus-visible { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-offset-tight); }
+
+/* Перемикач теми й «бургер» */
+.theme-btn,
+.burger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  padding: 0;
+  border: var(--border-width) solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+.theme-btn { border-radius: var(--radius-pill); }
+.burger { border-radius: var(--radius-md); }
+.theme-btn:hover, .burger:hover { background: var(--surface-alt); }
+
+/* Значок у перемикачі теми: місяць у світлій, сонце в темній */
+.theme-btn .ico-sun { display: none; }
+:root[data-theme="dark"] .theme-btn .ico-sun { display: block; }
+:root[data-theme="dark"] .theme-btn .ico-moon { display: none; }
+
+/* Пункти меню */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font: var(--type-nav);
+  text-decoration: none;
+}
+.nav-link:hover { background: var(--surface-alt); }
+
+/* Слово TipToe */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font: var(--type-wordmark-sm);
+  text-decoration: none;
+}
