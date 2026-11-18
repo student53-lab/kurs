@@ -19,6 +19,7 @@ window.TT_I18N = {
     nPrices: 'Ціни',
     nSchedule: 'Розклад',
     nMasters: 'Майстер-класи',
+    nArticles: 'Статті',
     nContacts: 'Контакти',
     footerAbout: 'Центр для дітей 2–6 років, Харків',
     privacyLink: 'Політика конфіденційності',
@@ -126,6 +127,15 @@ window.TT_I18N = {
     pBrowserP: 'Сайт зберігає у вашому браузері лише вибрану мову й тему, щоб показати їх наступного разу. Ці налаштування не надсилаються нам.',
     pUpdated: 'Оновлено: [ПОЛЕ] дата.',
 
+    /* Статті */
+    'articles.title': 'Статті — TipToe',
+    'articles.desc': 'Статті про майстер-класи TipToe: що роблять діти 2–6 років на заняттях і що це їм дає.',
+    artH1: 'Статті',
+    artIntro: 'Розповідаємо, як проходять наші майстер-класи і що вони дають дітям різного віку.',
+    artAll: 'Усі статті',
+    artCtaH: 'Хочете прийти на майстер-клас?',
+    artCtaP: 'Залиште заявку — адміністратор передзвонить і розповість про найближчу дату.',
+
     /* 404 */
     '404.title': 'Сторінку не знайдено — TipToe',
     '404.desc': 'Такої сторінки на сайті TipToe немає.',
@@ -154,6 +164,7 @@ window.TT_I18N = {
     nPrices: 'Prices',
     nSchedule: 'Schedule',
     nMasters: 'Workshops',
+    nArticles: 'Articles',
     nContacts: 'Contacts',
     footerAbout: 'Centre for children aged 2–6, Kharkiv',
     privacyLink: 'Privacy policy',
@@ -258,6 +269,14 @@ window.TT_I18N = {
     pBrowserH: 'What your browser remembers',
     pBrowserP: 'The website stores only your chosen language and theme in your browser, so it can show them next time. These settings are not sent to us.',
     pUpdated: 'Last updated: [FIELD] date.',
+
+    'articles.title': 'Articles — TipToe',
+    'articles.desc': 'Articles about TipToe workshops: what children aged 2–6 do in class and how it helps them.',
+    artH1: 'Articles',
+    artIntro: 'How our workshops work and what they give children of different ages. The articles are in Ukrainian.',
+    artAll: 'All articles',
+    artCtaH: 'Would you like to come to a workshop?',
+    artCtaP: 'Leave a request — our administrator will call you back with the next date.',
 
     '404.title': 'Page not found — TipToe',
     '404.desc': 'This page does not exist on the TipToe website.',

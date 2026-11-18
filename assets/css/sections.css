@@ -220,6 +220,16 @@
 .doc ul { padding-left: var(--space-5); display: flex; flex-direction: column; gap: var(--space-2); }
 .doc li { max-width: var(--measure); }
 
+/* Статті: поточний пункт меню, список і сторінка статті */
+.nav-link[aria-current="page"] { background: var(--surface-alt); }
+.crumbs { margin-bottom: var(--space-6); }
+.art-list { list-style: none; }
+.art-card { display: flex; flex-direction: column; gap: var(--space-3); }
+.art-card-link { color: var(--text); text-decoration: underline; text-underline-offset: 0.15em; }
+.art-card-link:hover { text-decoration-thickness: var(--focus-width); }
+.art-card-link:focus-visible { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-offset); border-radius: var(--radius-md); }
+.art-cta { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4); max-width: var(--content-max); margin-top: var(--space-8); }
+
 .center-block {
   display: flex;
   flex-direction: column;
