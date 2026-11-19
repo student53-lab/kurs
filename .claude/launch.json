@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "tiptoe-static",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "C:\\Users\\SNC\\AppData\\Local\\Temp\\claude\\abfbb42c0d20b183\\3b664f93-7252-4180-93cd-a3f4ac1b714d\\scratchpad\\serve.ps1", "-Root", "C:\\Users\\SNC\\Desktop\\сайт", "-Port", "8765"],
+      "port": 8765
+    }
+  ]
+}

@@ -6,6 +6,22 @@
   <meta name="robots" content="noindex">
   <title>Сторінку не знайдено — TipToe</title>
   <meta name="description" content="Такої сторінки на сайті TipToe немає.">
+  <script>
+    /* GitHub Pages показує 404.html за будь-якою адресою (/kurs/articles/nema), тож відносні шляхи
+       рахуємо від кореня сайту /kurs/. Якорі (#main, #tp-back) прив'язуємо до поточної сторінки.
+       На localhost нічого не змінюється. */
+    (function () {
+      if (!/\.github\.io$/.test(location.hostname)) return;
+      var base = document.createElement('base');
+      base.href = '/kurs/';
+      document.head.appendChild(base);
+      document.addEventListener('DOMContentLoaded', function () {
+        var here = location.href.split('#')[0];
+        var els = document.querySelectorAll('a[href^="#"], use[href^="#"]');
+        for (var i = 0; i < els.length; i++) els[i].setAttribute('href', here + els[i].getAttribute('href'));
+      });
+    })();
+  </script>
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/base.css">

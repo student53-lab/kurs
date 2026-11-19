@@ -1,0 +1,26 @@
+# Локальні налаштування Claude Code (можуть містити особисті дані)
+.claude/settings.local.json
+
+# Секрети й ключі
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+credentials*.json
+secrets*.json
+
+# Тимчасові файли Office
+~$*
+
+# Системні файли
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Залежності та збірка
+node_modules/
